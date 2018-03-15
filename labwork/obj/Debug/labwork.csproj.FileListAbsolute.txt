@@ -1,0 +1,9 @@
+D:\study\PTV\labwork\labwork\bin\Debug\labwork.exe.config
+D:\study\PTV\labwork\labwork\obj\Debug\labwork.csprojResolveAssemblyReference.cache
+D:\study\PTV\labwork\labwork\obj\Debug\labwork.Form1.resources
+D:\study\PTV\labwork\labwork\obj\Debug\labwork.Properties.Resources.resources
+D:\study\PTV\labwork\labwork\obj\Debug\labwork.csproj.GenerateResource.Cache
+D:\study\PTV\labwork\labwork\bin\Debug\labwork.exe
+D:\study\PTV\labwork\labwork\bin\Debug\labwork.pdb
+D:\study\PTV\labwork\labwork\obj\Debug\labwork.exe
+D:\study\PTV\labwork\labwork\obj\Debug\labwork.pdb
