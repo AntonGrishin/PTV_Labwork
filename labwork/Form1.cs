@@ -36,12 +36,12 @@ namespace labwork
             disp = Convert.ToDouble(textBox3.Text);
             count_exp = Convert.ToInt32(textBox4.Text);
             lam = 1.0 / (Math.Sqrt(disp));
-            mu = (1.0 / lam) - mean;
+            mu = Math.Sqrt(disp) - mean;
 
             label5.Text = "lambda: " + Convert.ToString(lam);
             label6.Text = "mu: " + Convert.ToString(mu);
 
-            if (mu >= 0)
+            if ((mu >= 0) && (lam>0))
             {
                 double[] etta = new double[count_exp];
 
@@ -55,10 +55,7 @@ namespace labwork
                     for (int j = 0; j < count_b; j++)
                     {
                         tmp = Rand.NextDouble();
-                        etta_tmp = -((Math.Log(
-                                         Math.Exp(mu - lam * mu) - tmp)
-                                                    - mu) / lam);
-                        etta[i] += etta_tmp;
+                        etta[i] += (mu - (Math.Log(tmp)/lam));
                     }
                 }
 
