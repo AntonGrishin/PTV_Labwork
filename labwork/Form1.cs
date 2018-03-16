@@ -27,11 +27,13 @@ namespace labwork
             double disp;
             double mean;
             double tmp;
+            double mu;
 
             n = Convert.ToInt32(textBox1.Text);
             mean = Convert.ToDouble(textBox2.Text);
             disp = Convert.ToDouble(textBox3.Text);
-            lam = 1 / (Math.Sqrt(disp));
+            lam = 1.0 / (Math.Sqrt(disp));
+            mu = (1.0 / lam) - mean;
 
             double[] etta = new double[n];
 
@@ -43,7 +45,7 @@ namespace labwork
             for (int i = 0; i < n; i++)
             {
                 tmp = Rand.NextDouble();
-                etta[i] = -((Math.Log(tmp) - 2) / lam);
+                etta[i] = -((Math.Log(tmp/lam) - mu) / lam);
             }
 
             Array.Sort(etta);
