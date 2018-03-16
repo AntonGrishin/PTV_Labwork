@@ -63,7 +63,7 @@ namespace labwork
 
                 for (int i = 0; i < count_exp; i++)
                 {
-                    etta[i].number = i;
+                    etta[i].number = i + 1;
                     etta[i].sv = 0;
                     for (int j = 0; j < count_b; j++)
                     {
