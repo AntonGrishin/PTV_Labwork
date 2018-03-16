@@ -9,8 +9,23 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
+
+
+
 namespace labwork
 {
+    public struct experiment:IComparable
+    {
+        public int number;
+        public double sv;
+
+        public int CompareTo(Object obj)
+        {
+            experiment arr = (experiment)obj;
+            return this.sv.CompareTo(arr.sv);
+        }
+    }
+
     public partial class Form1 : Form
     {
         public Form1()
@@ -29,7 +44,7 @@ namespace labwork
             double mean;
             double tmp;
             double mu;
-            double etta_tmp;
+           
 
             count_b = Convert.ToInt32(textBox1.Text);
             mean = Convert.ToDouble(textBox2.Text);
@@ -43,19 +58,17 @@ namespace labwork
 
             if ((mu >= 0) && (lam>0))
             {
-                double[] etta = new double[count_exp];
+                experiment[] etta = new experiment[count_exp];
+
 
                 for (int i = 0; i < count_exp; i++)
                 {
-                    etta[i] = 0;
-                }
-
-                for (int i = 0; i < count_exp; i++)
-                {
+                    etta[i].number = i;
+                    etta[i].sv = 0;
                     for (int j = 0; j < count_b; j++)
                     {
                         tmp = Rand.NextDouble();
-                        etta[i] += (mu - (Math.Log(tmp)/lam));
+                        etta[i].sv += (mu - (Math.Log(tmp)/lam));
                     }
                 }
 
@@ -64,8 +77,8 @@ namespace labwork
                 for (int i = 0; i < count_exp; i++)
                 {
                     dataGridView1.Rows.Add();
-                    dataGridView1.Rows[i].Cells[0].Value = Convert.ToString(i);
-                    dataGridView1.Rows[i].Cells[1].Value = Convert.ToString(etta[i]);
+                    dataGridView1.Rows[i].Cells[0].Value = Convert.ToString(etta[i].number);
+                    dataGridView1.Rows[i].Cells[1].Value = Convert.ToString(etta[i].sv);
                 }
             }
             else
