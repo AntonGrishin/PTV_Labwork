@@ -45,7 +45,7 @@ namespace labwork
             for (int i = 0; i < n; i++)
             {
                 tmp = Rand.NextDouble();
-                etta[i] = -((Math.Log(tmp/lam) - mu) / lam);
+                etta[i] = mu - (Math.Log(tmp) / lam) ;
             }
 
             Array.Sort(etta);
