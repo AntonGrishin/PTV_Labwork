@@ -95,5 +95,85 @@ namespace labwork
                 }
             }
         }
+
+        public void form_cotrol(TextBox textBox1,KeyPressEventArgs e)
+        {
+            if ((e.KeyChar >= '0') && (e.KeyChar <= '9'))
+                {
+                    // цифра
+                    return;
+                }
+
+                if (e.KeyChar == '.')
+                {
+                // точку заменим запятой
+                    e.KeyChar = ',';
+                }
+
+                if (e.KeyChar == ',')
+                {
+                    if (textBox1.Text.IndexOf(',') != -1)
+                    {
+
+                        // запятая уже есть в поле редактирования
+                        e.Handled = true;
+                    }
+                     return;
+                }
+
+                if (Char.IsControl(e.KeyChar))
+                {
+                    // <Enter>, <Backspace>, <Esc>
+                    if (e.KeyChar == (char)Keys.Enter)
+                        // нажата клавиша <Enter>
+                        // установить курсор на кнопку OK
+                        button1.Focus();
+                    return;
+                }
+
+                // остальные символы запрещены
+                e.Handled = true;
+        }
+
+        public void mod_form_conrtol(KeyPressEventArgs e)
+        {
+            if ((e.KeyChar >= '0') && (e.KeyChar <= '9'))
+            {
+                // цифра
+                return;
+            }
+
+            if (Char.IsControl(e.KeyChar))
+            {
+                // <Enter>, <Backspace>, <Esc>
+                if (e.KeyChar == (char)Keys.Enter)
+                    // нажата клавиша <Enter>
+                    // установить курсор на кнопку OK
+                    button1.Focus();
+                return;
+            }
+
+            // остальные символы запрещены
+            e.Handled = true;
+        }
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            form_cotrol(textBox2,e);
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            form_cotrol(textBox3, e);
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            mod_form_conrtol(e);
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            mod_form_conrtol(e);
+        }
     }
 }

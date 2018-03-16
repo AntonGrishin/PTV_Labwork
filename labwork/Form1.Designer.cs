@@ -38,12 +38,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -83,6 +83,7 @@
             this.textBox1.Size = new System.Drawing.Size(30, 20);
             this.textBox1.TabIndex = 3;
             this.textBox1.Text = "10";
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // textBox2
             // 
@@ -91,6 +92,7 @@
             this.textBox2.Size = new System.Drawing.Size(32, 20);
             this.textBox2.TabIndex = 4;
             this.textBox2.Text = "1";
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // textBox3
             // 
@@ -99,6 +101,7 @@
             this.textBox3.Size = new System.Drawing.Size(52, 20);
             this.textBox3.TabIndex = 5;
             this.textBox3.Text = "1,5";
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
             // 
             // pictureBox2
             // 
@@ -144,6 +147,16 @@
             this.dataGridView1.Size = new System.Drawing.Size(526, 252);
             this.dataGridView1.TabIndex = 9;
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Exp Number";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "xi";
+            this.Column2.Name = "Column2";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -160,6 +173,7 @@
             this.textBox4.Size = new System.Drawing.Size(62, 20);
             this.textBox4.TabIndex = 11;
             this.textBox4.Text = "1000";
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_KeyPress);
             // 
             // label5
             // 
@@ -178,16 +192,6 @@
             this.label6.Size = new System.Drawing.Size(27, 13);
             this.label6.TabIndex = 13;
             this.label6.Text = "mu: ";
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Exp Number";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "xi";
-            this.Column2.Name = "Column2";
             // 
             // Form1
             // 
