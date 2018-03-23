@@ -51,7 +51,7 @@ namespace labwork
             disp = Convert.ToDouble(textBox3.Text);
             count_exp = Convert.ToInt32(textBox4.Text);
             lam = 1.0 / (Math.Sqrt(disp));
-            mu = Math.Sqrt(disp) - mean;
+            mu = mean - Math.Sqrt(disp);
 
             label5.Text = "lambda: " + Convert.ToString(lam);
             label6.Text = "mu: " + Convert.ToString(mu);
