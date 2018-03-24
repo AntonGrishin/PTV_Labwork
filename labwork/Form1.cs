@@ -26,6 +26,7 @@ namespace labwork
         }
     }
 
+
     public struct specifications
     {
         public double mean;
@@ -38,6 +39,17 @@ namespace labwork
 
     public partial class Form1 : Form
     {
+        int count_b = 0;
+        int count_exp = 0;
+        int k = 0;
+        double lam;
+        double disp;
+        double mean;
+        double tmp;
+        double mu;
+        experiment[] etta;
+        specifications charact;
+
         public Form1()
         {
             InitializeComponent();
@@ -47,13 +59,7 @@ namespace labwork
         {
             dataGridView1.Rows.Clear();
             Random Rand = new Random();
-            int count_b = 0;
-            int count_exp = 0;
-            double lam;
-            double disp;
-            double mean;
-            double tmp;
-            double mu;
+
            
 
             count_b = Convert.ToInt32(textBox1.Text);
@@ -68,7 +74,7 @@ namespace labwork
 
             if ((mu >= 0) && (lam>0))
             {
-                experiment[] etta = new experiment[count_exp];
+                etta = new experiment[count_exp];
 
 
                 for (int i = 0; i < count_exp; i++)
@@ -184,6 +190,55 @@ namespace labwork
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             mod_form_conrtol(e);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dataGridView2.Rows.Clear();
+
+            charact.mean = count_b * mean;
+            charact.disp = count_b * disp;
+            
+            //среднее выборочное
+            for(int i=0;i<count_exp;i++)
+            {
+                charact.v_mean += etta[i].sv;
+            }
+            charact.v_mean = charact.v_mean / count_exp;
+
+            //выборочная дисперсия
+            for (int i = 0; i < count_exp; i++)
+            {
+                charact.v_disp += Math.Pow((etta[i].sv - charact.v_mean),2);
+            }
+            charact.v_disp = charact.v_disp / count_exp;
+
+            //размах
+            charact.razm = - etta[0].sv  + etta[count_exp - 1].sv;
+            
+            //медиана
+
+            if(count_exp % 2 == 1)
+            {
+                k = count_exp / 2 + 1;
+                charact.v_median = etta[k].sv;
+            }
+            else
+            {
+                k = count_exp / 2 + 1;
+                charact.v_median = (etta[k].sv + etta[k - 1].sv) / 2;
+            }
+
+            dataGridView2.Rows.Add();
+
+            dataGridView2.Rows[0].Cells[0].Value = Convert.ToString(charact.mean);
+            dataGridView2.Rows[0].Cells[1].Value = Convert.ToString(charact.v_mean);
+            dataGridView2.Rows[0].Cells[2].Value = Convert.ToString(Math.Abs(charact.mean - charact.v_mean));
+            dataGridView2.Rows[0].Cells[3].Value = Convert.ToString(charact.disp);
+            dataGridView2.Rows[0].Cells[4].Value = Convert.ToString(charact.v_disp);
+            dataGridView2.Rows[0].Cells[5].Value = Convert.ToString(Math.Abs(charact.disp - charact.v_disp));
+            dataGridView2.Rows[0].Cells[6].Value = Convert.ToString(charact.v_median);
+            dataGridView2.Rows[0].Cells[7].Value = Convert.ToString(charact.razm);
         }
     }
 }
