@@ -18,18 +18,22 @@ namespace labwork
     {
         public int number;
         public double sv;
+ 
+        public int CompareTo(Object obj)
+        {
+            experiment arr = (experiment)obj;
+            return this.sv.CompareTo(arr.sv);
+        }
+    }
+
+    public struct specifications
+    {
         public double mean;
         public double v_mean;
         public double disp;
         public double v_disp;
         public double v_median;
         public double razm;
-
-        public int CompareTo(Object obj)
-        {
-            experiment arr = (experiment)obj;
-            return this.sv.CompareTo(arr.sv);
-        }
     }
 
     public partial class Form1 : Form
