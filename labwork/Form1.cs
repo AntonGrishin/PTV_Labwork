@@ -47,6 +47,12 @@ namespace labwork
         double mean;
         double tmp;
         double mu;
+
+        double common_lam;
+        double common_mu;
+        double v_lam;
+        double v_mu;
+
         experiment[] etta;
         specifications charact;
 
@@ -223,11 +229,12 @@ namespace labwork
                 k = count_exp / 2 + 1;
                 charact.v_median = etta[k].sv;
             }
-            else
+            else if(count_exp % 2 == 0)
             {
-                k = count_exp / 2 + 1;
+                k = count_exp / 2;
                 charact.v_median = (etta[k].sv + etta[k - 1].sv) / 2;
             }
+            
 
             dataGridView2.Rows.Add();
 
@@ -239,6 +246,42 @@ namespace labwork
             dataGridView2.Rows[0].Cells[5].Value = Convert.ToString(Math.Abs(charact.disp - charact.v_disp));
             dataGridView2.Rows[0].Cells[6].Value = Convert.ToString(charact.v_median);
             dataGridView2.Rows[0].Cells[7].Value = Convert.ToString(charact.razm);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+          
+            double eps = 0.001;
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+            common_lam = 1.0 / (Math.Sqrt(charact.disp));
+            common_mu = charact.mean - Math.Sqrt(charact.disp);
+
+            v_lam = 1.0 / (Math.Sqrt(charact.v_disp));
+            v_mu = charact.v_mean - Math.Sqrt(charact.v_disp);
+
+            for (int i = 0; i < count_exp; i++)
+            {
+                double x = common_mu + i * 0.2;
+                double y = 1 - Math.Exp(-common_lam * (x - common_mu));
+                
+                chart1.Series[0].Points.AddXY(x, y);
+               
+            }
+
+            chart1.Series[1].Points.AddXY(common_mu, 0);
+
+            for (int i = 0; i < count_exp; i++)
+            {
+
+                double x = common_mu + i * 0.2;
+             
+                double y = 1 - Math.Exp(-common_lam * (x - common_mu)) + eps;
+
+                    chart1.Series[1].Points.AddXY(x, y);
+            }
+
+            //chart1.Series[1].Points.AddXY(dataGridView1.Rows[count_exp-1].Cells[1].Value, 1);
         }
     }
 }
