@@ -47,7 +47,9 @@ namespace labwork
         double mean;
         double tmp;
         double mu;
-
+        private int size;
+        double[] ni, zi, board;
+        double min, max;
         double common_lam;
         double common_mu;
         double v_lam;
@@ -198,6 +200,46 @@ namespace labwork
             mod_form_conrtol(e);
         }
 
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            min = etta[0].sv;
+            max = etta[count_exp - 1].sv;
+
+            size = Convert.ToInt32(textBox5.Text);
+            dataGridView3.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView3.Rows.Clear();
+            dataGridView3.RowCount = size + 1;
+            dataGridView3.ColumnCount = 1;
+            dataGridView3.Rows[0].Cells[0].Value = Convert.ToString(min);
+            dataGridView3.Rows[size].Cells[0].Value = Convert.ToString(max);
+
+            dataGridView4.Rows.Clear();
+            dataGridView4.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView4.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView4.ColumnCount = size;
+            dataGridView4.RowCount = 3;
+            ni = new double[size + 1];
+            zi = new double[size + 1];
+            board = new double[size + 1];
+            for (int j = 0; j < size; ++j)
+            {
+                ni[j] = 0;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+            for (int i = 1; i < size; i++)
+            {
+                zi[i] = ((max + min) / size) + i + min;
+                dataGridView3.Rows[i].Cells[0].Value = Convert.ToString(zi[i]);
+            }
+
+
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             dataGridView2.Rows.Clear();
@@ -282,6 +324,30 @@ namespace labwork
             }
 
             //chart1.Series[1].Points.AddXY(dataGridView1.Rows[count_exp-1].Cells[1].Value, 1);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                if (Convert.ToString(dataGridView3.Rows[i].Cells[0]) != "")
+                {
+                    zi[i] = Convert.ToDouble(dataGridView3.Rows[i].Cells[0]);
+                }
+                else
+                {
+                    var result = MessageBox.Show("Введены не все промежутки", "Ошибка", MessageBoxButtons.OK);
+
+                    if (result == System.Windows.Forms.DialogResult.Yes)
+                    {
+
+                        // Closes the parent form.
+
+                        this.Close();
+
+                    }
+                }
+            }
         }
     }
 }
