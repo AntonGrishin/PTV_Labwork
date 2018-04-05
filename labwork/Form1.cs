@@ -221,23 +221,25 @@ namespace labwork
             dataGridView4.RowCount = 3;
             ni = new double[size + 1];
             zi = new double[size + 1];
-            board = new double[size + 1];
+        
             for (int j = 0; j < size; ++j)
             {
                 ni[j] = 0;
             }
+
+            zi[0] = min;
+            zi[size] = max; ;
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-
             for (int i = 1; i < size; i++)
             {
-                zi[i] = ((max + min) / size) + i + min;
+                zi[i] = ((max - min) / (size)) + zi[i-1];
                 dataGridView3.Rows[i].Cells[0].Value = Convert.ToString(zi[i]);
+
             }
-
-
+            charts_zi();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -328,11 +330,12 @@ namespace labwork
 
         private void button4_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < size; i++)
+            for (int i = 1; i < size; i++)
             {
                 if (Convert.ToString(dataGridView3.Rows[i].Cells[0]) != "")
                 {
-                    zi[i] = Convert.ToDouble(dataGridView3.Rows[i].Cells[0]);
+                    zi[i] = Convert.ToDouble(dataGridView3.Rows[i].Cells[0].Value);
+                
                 }
                 else
                 {
@@ -348,6 +351,25 @@ namespace labwork
                     }
                 }
             }
+
+            charts_zi();
+        }
+
+        double get_plotn(double x)
+        {
+            return common_lam * Math.Exp(common_lam * (common_mu - x));
+        }
+
+        void charts_zi()
+        {
+
+            for (int i = 0; i < size; i++)
+            {
+                chart2.Series[0].Points.AddXY(i, zi[i]);
+                dataGridView4.Rows[0].Cells[i].Value = Convert.ToDouble((zi[i + 1] + zi[i])/2);
+                dataGridView4.Rows[1].Cells[i].Value = Convert.ToDouble(get_plotn((zi[i + 1] + zi[i]) / 2));
+            }
+            chart2.Series[0].Points.AddXY(size, zi[size]);
         }
     }
 }
