@@ -304,25 +304,21 @@ namespace labwork
             v_lam = 1.0 / (Math.Sqrt(charact.v_disp));
             v_mu = charact.v_mean - Math.Sqrt(charact.v_disp);
 
-            for (int i = 0; i < count_exp; i++)
+            for (int i = 0; i < 30; i++)
             {
-                double x = common_mu + i * 0.2;
+                double x = common_mu + i * 0.5;
                 double y = 1 - Math.Exp(-common_lam * (x - common_mu));
                 
                 chart1.Series[0].Points.AddXY(x, y);
-               
-            }
+          
 
-            chart1.Series[1].Points.AddXY(common_mu, 0);
-
-            for (int i = 0; i < count_exp; i++)
-            {
-
-                double x = common_mu + i * 0.2;
+                double x1 = common_mu + i * 0.5;
              
-                double y = 1 - Math.Exp(-common_lam * (x - common_mu)) + eps;
+                double y1 = 1 - Math.Exp(-common_lam * (x1 - common_mu)) + eps;
 
-                    chart1.Series[1].Points.AddXY(x, y);
+                    chart1.Series[1].Points.AddXY(x1, y1);
+
+                double rash = Math.Abs(y1-y);
             }
 
             //chart1.Series[1].Points.AddXY(dataGridView1.Rows[count_exp-1].Cells[1].Value, 1);
@@ -365,11 +361,39 @@ namespace labwork
 
             for (int i = 0; i < size; i++)
             {
-                chart2.Series[0].Points.AddXY(i, zi[i]);
-                dataGridView4.Rows[0].Cells[i].Value = Convert.ToDouble((zi[i + 1] + zi[i])/2);
-                dataGridView4.Rows[1].Cells[i].Value = Convert.ToDouble(get_plotn((zi[i + 1] + zi[i]) / 2));
+                
+                dataGridView4.Rows[0].Cells[i].Value =(zi[i + 1] + zi[i])/2;
+                dataGridView4.Rows[1].Cells[i].Value = get_plotn((zi[i + 1] + zi[i]) / 2);
+
+                for (int j = 0; j < count_exp; j++)
+                {
+                    if ((zi[i] < etta[j].sv) && (zi[i + 1] > etta[j].sv))
+                    {
+                        ni[i] += 1;
+                    }
+                }
+
+                ni[i] = ni[i] * 1 / (count_exp* Math.Abs(zi[i + 1] - zi[i]));
+                dataGridView4.Rows[2].Cells[i].Value = ni[i];
+
+                chart2.Series[0].Points.AddXY(i, ni[i]);
             }
-            chart2.Series[0].Points.AddXY(size, zi[size]);
+            chart2.Series[0].Points.AddXY(size, ni[size]);
+
+            double abs_max = -99;
+            int pos = 0;
+            for (int i = 0; i < size; i++)
+            {
+                if (Math.Abs(ni[i] - get_plotn((zi[i + 1] + zi[i]) / 2)) > abs_max)
+                {
+                    abs_max = Math.Abs(ni[i] - get_plotn((zi[i + 1] + zi[i]) / 2));
+                    pos = i;
+                }
+            }
+
+            label8.Text = "max: " + Convert.ToString(abs_max) + ". On pos: " + Convert.ToString(pos);
+
+
         }
     }
 }
