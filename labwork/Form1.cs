@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -303,24 +304,38 @@ namespace labwork
 
             v_lam = 1.0 / (Math.Sqrt(charact.v_disp));
             v_mu = charact.v_mean - Math.Sqrt(charact.v_disp);
+            double offset = common_mu - etta[0].sv;
 
-            for (int i = 0; i < 30; i++)
+            double local_max = -10;
+            
+            for (int i = 0; i < count_exp; i++)
             {
-                double x = common_mu + i * 0.5;
-                double y = 1 - Math.Exp(-common_lam * (x - common_mu));
-                
-                chart1.Series[0].Points.AddXY(x, y);
+               // double x = common_mu + i * 0.2;
+               
           
 
-                double x1 = common_mu + i * 0.5;
+               // double x1 = common_mu + i * 0.5;
              
-                double y1 = 1 - Math.Exp(-common_lam * (x1 - common_mu)) + eps;
+               // double y1 = 1 - Math.Exp(-common_lam * (x1 - common_mu));
+               
+                double x1 = Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) + eps;
+                double y = 1 - Math.Exp(-common_lam * (x1 - common_mu));
 
+                chart1.Series[0].Points.AddXY(x1, y);
+
+                double y1 = ((double)(i ) / count_exp);
                     chart1.Series[1].Points.AddXY(x1, y1);
 
-                double rash = Math.Abs(y1-y);
+               
+                    double rash = Math.Abs(y1 - y);
+
+                if(x1>common_mu)
+                    if (local_max < rash)
+                        local_max = rash;
+              
             }
 
+            label9.Text = "D: " + Convert.ToDouble(local_max);
             //chart1.Series[1].Points.AddXY(dataGridView1.Rows[count_exp-1].Cells[1].Value, 1);
         }
 
