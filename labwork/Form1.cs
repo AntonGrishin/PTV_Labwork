@@ -320,19 +320,16 @@ namespace labwork
             
             for (int i = 0; i < count_exp; i++)
             {
-               // double x = common_mu + i * 0.2;
-               
-          
 
-               // double x1 = common_mu + i * 0.5;
-             
-               // double y1 = 1 - Math.Exp(-common_lam * (x1 - common_mu));
-               
+
                 double x1 = Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) + eps;
-                double y = 1 - Math.Exp(-common_lam * (x1 - common_mu));
+                double y = normaldistr.normaldistribution(
+                    (x1 - charact.mean) / (charact.disp/Math.Sqrt(count_b)));
 
                 chart1.Series[0].Points.AddXY(x1, y);
 
+
+              
                 double y1 = ((double)(i ) / count_exp);
                     chart1.Series[1].Points.AddXY(x1, y1);
 
