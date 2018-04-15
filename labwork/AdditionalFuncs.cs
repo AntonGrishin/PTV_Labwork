@@ -344,6 +344,13 @@ namespace labwork
             return result;
         }
 
+        public static double get_plotn(double x, double disp, double mean)
+        {
+            return (1 / (Math.Sqrt(2 * Math.PI * disp))) *
+                   Math.Exp(
+                       -Math.Pow(x - mean, 2) / (2 * disp)
+                   );
 
+        }
     }
 }

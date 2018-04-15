@@ -203,7 +203,8 @@ namespace labwork
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
-           
+            dataGridView3.Rows.Clear();
+            dataGridView4.Rows.Clear();
             min = etta[0].sv;
             max = etta[count_exp - 1].sv;
 
@@ -235,6 +236,7 @@ namespace labwork
 
         private void button5_Click(object sender, EventArgs e)
         {
+            textBox5_TextChanged(sender, e);
             for (int i = 1; i < size; i++)
             {
                 zi[i] = ((max - min) / (size)) + zi[i-1];
@@ -348,6 +350,7 @@ namespace labwork
 
         private void button4_Click(object sender, EventArgs e)
         {
+           
             for (int i = 1; i < size; i++)
             {
                 if (Convert.ToString(dataGridView3.Rows[i].Cells[0]) != "")
@@ -373,19 +376,18 @@ namespace labwork
             charts_zi();
         }
 
-        double get_plotn(double x)
-        {
-            return common_lam * Math.Exp(common_lam * (common_mu - x));
-        }
+        
 
         void charts_zi()
-        {
+        {  
+            chart2.Series[0].Points.Clear();
 
             for (int i = 0; i < size; i++)
             {
                 
                 dataGridView4.Rows[0].Cells[i].Value =(zi[i + 1] + zi[i])/2;
-                dataGridView4.Rows[1].Cells[i].Value = get_plotn((zi[i + 1] + zi[i]) / 2);
+                dataGridView4.Rows[1].Cells[i].Value = normaldistr.get_plotn(
+                    (zi[i + 1] + zi[i]) / 2, charact.disp, charact.disp);
 
                 for (int j = 0; j < count_exp; j++)
                 {
@@ -406,9 +408,11 @@ namespace labwork
             int pos = 0;
             for (int i = 0; i < size; i++)
             {
-                if (Math.Abs(ni[i] - get_plotn((zi[i + 1] + zi[i]) / 2)) > abs_max)
+                if (Math.Abs(ni[i] - normaldistr.get_plotn(
+                                 (zi[i + 1] + zi[i]) / 2, charact.disp, charact.disp)) > abs_max)
                 {
-                    abs_max = Math.Abs(ni[i] - get_plotn((zi[i + 1] + zi[i]) / 2));
+                    abs_max = Math.Abs(ni[i] - normaldistr.get_plotn(
+                                           (zi[i + 1] + zi[i]) / 2, charact.disp, charact.disp));
                     pos = i;
                 }
             }
