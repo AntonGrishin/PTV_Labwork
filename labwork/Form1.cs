@@ -316,6 +316,7 @@ namespace labwork
             double offset = common_mu - etta[0].sv;
 
             double local_max = -10;
+
             
             for (int i = 0; i < count_exp; i++)
             {
