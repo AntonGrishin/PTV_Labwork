@@ -324,7 +324,7 @@ namespace labwork
 
                 double x1 = Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) + eps;
                 double y = normaldistr.normaldistribution(
-                    (x1 - charact.mean) / (charact.disp/Math.Sqrt(count_b)));
+                    (x1 - charact.mean) / (Math.Sqrt(charact.disp)));
 
                 chart1.Series[0].Points.AddXY(x1, y);
 
