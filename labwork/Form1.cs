@@ -203,6 +203,7 @@ namespace labwork
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
+           
             min = etta[0].sv;
             max = etta[count_exp - 1].sv;
 
@@ -249,9 +250,13 @@ namespace labwork
 
             charact.mean = count_b * mean;
             charact.disp = count_b * disp;
-            
+
+
+            charact.v_mean = 0;
+            charact.v_disp = 0;
+
             //среднее выборочное
-            for(int i=0;i<count_exp;i++)
+            for (int i=0;i<count_exp;i++)
             {
                 charact.v_mean += etta[i].sv;
             }
@@ -272,14 +277,20 @@ namespace labwork
             if(count_exp % 2 == 1)
             {
                 k = count_exp / 2 + 1;
-                charact.v_median = etta[k].sv;
+                charact.v_median = etta[k-1].sv;
             }
             else if(count_exp % 2 == 0)
             {
                 k = count_exp / 2;
                 charact.v_median = (etta[k].sv + etta[k - 1].sv) / 2;
             }
-            
+
+
+            common_lam = 1.0 / (Math.Sqrt(charact.disp));
+            common_mu = charact.mean - Math.Sqrt(charact.disp);
+
+            label10.Text = "common_lam: " + Convert.ToString(common_lam);
+            label11.Text = "common_mu: " + Convert.ToString(common_mu);
 
             dataGridView2.Rows.Add();
 
@@ -299,8 +310,6 @@ namespace labwork
             double eps = 0.001;
             chart1.Series[0].Points.Clear();
             chart1.Series[1].Points.Clear();
-            common_lam = 1.0 / (Math.Sqrt(charact.disp));
-            common_mu = charact.mean - Math.Sqrt(charact.disp);
 
             v_lam = 1.0 / (Math.Sqrt(charact.v_disp));
             v_mu = charact.v_mean - Math.Sqrt(charact.v_disp);
