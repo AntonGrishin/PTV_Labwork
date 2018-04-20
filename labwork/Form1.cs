@@ -15,11 +15,11 @@ using System.Windows.Forms;
 
 namespace labwork
 {
-    public struct experiment:IComparable
+    public struct experiment : IComparable
     {
         public int number;
         public double sv;
- 
+
         public int CompareTo(Object obj)
         {
             experiment arr = (experiment)obj;
@@ -69,7 +69,7 @@ namespace labwork
             dataGridView1.Rows.Clear();
             Random Rand = new Random();
 
-           
+
 
             count_b = Convert.ToInt32(textBox1.Text);
             mean = Convert.ToDouble(textBox2.Text);
@@ -81,7 +81,7 @@ namespace labwork
             label5.Text = "lambda: " + Convert.ToString(lam);
             label6.Text = "mu: " + Convert.ToString(mu);
 
-            if ((mu >= 0) && (lam>0))
+            if ((mu >= 0) && (lam > 0))
             {
                 etta = new experiment[count_exp];
 
@@ -93,7 +93,7 @@ namespace labwork
                     for (int j = 0; j < count_b; j++)
                     {
                         tmp = Rand.NextDouble();
-                        etta[i].sv += (mu - (Math.Log(tmp)/lam));
+                        etta[i].sv += (mu - (Math.Log(tmp) / lam));
                     }
                 }
 
@@ -121,43 +121,43 @@ namespace labwork
             }
         }
 
-        public void form_cotrol(TextBox textBox1,KeyPressEventArgs e)
+        public void form_cotrol(TextBox textBox1, KeyPressEventArgs e)
         {
             if ((e.KeyChar >= '0') && (e.KeyChar <= '9'))
-                {
-                    // цифра
-                    return;
-                }
+            {
+                // цифра
+                return;
+            }
 
-                if (e.KeyChar == '.')
-                {
+            if (e.KeyChar == '.')
+            {
                 // точку заменим запятой
-                    e.KeyChar = ',';
-                }
+                e.KeyChar = ',';
+            }
 
-                if (e.KeyChar == ',')
+            if (e.KeyChar == ',')
+            {
+                if (textBox1.Text.IndexOf(',') != -1)
                 {
-                    if (textBox1.Text.IndexOf(',') != -1)
-                    {
 
-                        // запятая уже есть в поле редактирования
-                        e.Handled = true;
-                    }
-                     return;
+                    // запятая уже есть в поле редактирования
+                    e.Handled = true;
                 }
+                return;
+            }
 
-                if (Char.IsControl(e.KeyChar))
-                {
-                    // <Enter>, <Backspace>, <Esc>
-                    if (e.KeyChar == (char)Keys.Enter)
-                        // нажата клавиша <Enter>
-                        // установить курсор на кнопку OK
-                        button1.Focus();
-                    return;
-                }
+            if (Char.IsControl(e.KeyChar))
+            {
+                // <Enter>, <Backspace>, <Esc>
+                if (e.KeyChar == (char)Keys.Enter)
+                    // нажата клавиша <Enter>
+                    // установить курсор на кнопку OK
+                    button1.Focus();
+                return;
+            }
 
-                // остальные символы запрещены
-                e.Handled = true;
+            // остальные символы запрещены
+            e.Handled = true;
         }
 
         public void mod_form_conrtol(KeyPressEventArgs e)
@@ -183,7 +183,7 @@ namespace labwork
         }
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
-            form_cotrol(textBox2,e);
+            form_cotrol(textBox2, e);
         }
 
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
@@ -224,7 +224,7 @@ namespace labwork
             dataGridView4.RowCount = 3;
             ni = new double[size + 1];
             zi = new double[size + 1];
-        
+
             for (int j = 0; j < size; ++j)
             {
                 ni[j] = 0;
@@ -239,7 +239,7 @@ namespace labwork
             textBox5_TextChanged(sender, e);
             for (int i = 1; i < size; i++)
             {
-                zi[i] = ((max - min) / (size)) + zi[i-1];
+                zi[i] = ((max - min) / (size)) + zi[i - 1];
                 dataGridView3.Rows[i].Cells[0].Value = Convert.ToString(zi[i]);
 
             }
@@ -258,7 +258,7 @@ namespace labwork
             charact.v_disp = 0;
 
             //среднее выборочное
-            for (int i=0;i<count_exp;i++)
+            for (int i = 0; i < count_exp; i++)
             {
                 charact.v_mean += etta[i].sv;
             }
@@ -267,21 +267,21 @@ namespace labwork
             //выборочная дисперсия
             for (int i = 0; i < count_exp; i++)
             {
-                charact.v_disp += Math.Pow((etta[i].sv - charact.v_mean),2);
+                charact.v_disp += Math.Pow((etta[i].sv - charact.v_mean), 2);
             }
             charact.v_disp = charact.v_disp / count_exp;
 
             //размах
-            charact.razm = - etta[0].sv  + etta[count_exp - 1].sv;
-            
+            charact.razm = -etta[0].sv + etta[count_exp - 1].sv;
+
             //медиана
 
-            if(count_exp % 2 == 1)
+            if (count_exp % 2 == 1)
             {
                 k = count_exp / 2 + 1;
-                charact.v_median = etta[k-1].sv;
+                charact.v_median = etta[k - 1].sv;
             }
-            else if(count_exp % 2 == 0)
+            else if (count_exp % 2 == 0)
             {
                 k = count_exp / 2;
                 charact.v_median = (etta[k].sv + etta[k - 1].sv) / 2;
@@ -308,7 +308,7 @@ namespace labwork
 
         private void button3_Click(object sender, EventArgs e)
         {
-          
+
             double eps = 0.001;
             chart1.Series[0].Points.Clear();
             chart1.Series[1].Points.Clear();
@@ -319,10 +319,10 @@ namespace labwork
 
             double local_max = -10;
 
-            
+
+
             for (int i = 0; i < count_exp; i++)
             {
-
 
                 double x1 = Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) + eps;
                 double y = normaldistr.normaldistribution(
@@ -330,18 +330,14 @@ namespace labwork
 
                 chart1.Series[0].Points.AddXY(x1, y);
 
+                double y1 = ((double)(i) / count_exp);
+                chart1.Series[1].Points.AddXY(x1, y1);
 
-              
-                double y1 = ((double)(i ) / count_exp);
-                    chart1.Series[1].Points.AddXY(x1, y1);
+                double rash = Math.Abs(y1 - y);
 
-               
-                    double rash = Math.Abs(y1 - y);
 
-                if(x1>common_mu)
-                    if (local_max < rash)
-                        local_max = rash;
-              
+                if (local_max < rash)
+                    local_max = rash;
             }
 
             label9.Text = "D: " + Convert.ToDouble(local_max);
@@ -350,13 +346,13 @@ namespace labwork
 
         private void button4_Click(object sender, EventArgs e)
         {
-           
+
             for (int i = 1; i < size; i++)
             {
                 if (Convert.ToString(dataGridView3.Rows[i].Cells[0]) != "")
                 {
                     zi[i] = Convert.ToDouble(dataGridView3.Rows[i].Cells[0].Value);
-                
+
                 }
                 else
                 {
@@ -376,18 +372,18 @@ namespace labwork
             charts_zi();
         }
 
-        
+
 
         void charts_zi()
-        {  
+        {
             chart2.Series[0].Points.Clear();
 
             for (int i = 0; i < size; i++)
             {
-                
-                dataGridView4.Rows[0].Cells[i].Value =(zi[i + 1] + zi[i])/2;
+
+                dataGridView4.Rows[0].Cells[i].Value = (zi[i + 1] + zi[i]) / 2;
                 dataGridView4.Rows[1].Cells[i].Value = normaldistr.get_plotn(
-                    (zi[i + 1] + zi[i]) / 2, charact.disp, charact.disp);
+                    (zi[i + 1] + zi[i]) / 2, charact.disp, charact.mean);
 
                 for (int j = 0; j < count_exp; j++)
                 {
@@ -397,10 +393,10 @@ namespace labwork
                     }
                 }
 
-                ni[i] = ni[i] * 1 / (count_exp* Math.Abs(zi[i + 1] - zi[i]));
+                ni[i] = ni[i] * 1 / (count_exp * Math.Abs(zi[i + 1] - zi[i]));
                 dataGridView4.Rows[2].Cells[i].Value = ni[i];
 
-                chart2.Series[0].Points.AddXY(i, ni[i]);
+                chart2.Series[0].Points.AddXY((zi[i + 1] + zi[i]) / 2, ni[i]);
             }
             chart2.Series[0].Points.AddXY(size, ni[size]);
 
@@ -409,10 +405,10 @@ namespace labwork
             for (int i = 0; i < size; i++)
             {
                 if (Math.Abs(ni[i] - normaldistr.get_plotn(
-                                 (zi[i + 1] + zi[i]) / 2, charact.disp, charact.disp)) > abs_max)
+                                 (zi[i + 1] + zi[i]) / 2, charact.disp, charact.mean)) > abs_max)
                 {
                     abs_max = Math.Abs(ni[i] - normaldistr.get_plotn(
-                                           (zi[i + 1] + zi[i]) / 2, charact.disp, charact.disp));
+                                           (zi[i + 1] + zi[i]) / 2, charact.disp, charact.mean));
                     pos = i;
                 }
             }
