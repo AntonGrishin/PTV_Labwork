@@ -237,6 +237,13 @@ namespace labwork
         private void button5_Click(object sender, EventArgs e)
         {
             textBox5_TextChanged(sender, e);
+            for (int j = 0; j < size; ++j)
+            {
+                ni[j] = 0;
+            }
+
+            zi[0] = min;
+            zi[size] = max; ;
             for (int i = 1; i < size; i++)
             {
                 zi[i] = ((max - min) / (size)) + zi[i - 1];
@@ -346,6 +353,13 @@ namespace labwork
 
         private void button4_Click(object sender, EventArgs e)
         {
+            for (int j = 0; j < size; ++j)
+            {
+                ni[j] = 0;
+            }
+
+            zi[0] = min;
+            zi[size] = max; ;
 
             for (int i = 1; i < size; i++)
             {
@@ -376,6 +390,8 @@ namespace labwork
 
         void charts_zi()
         {
+            
+
             chart2.Series[0].Points.Clear();
 
             for (int i = 0; i < size; i++)
@@ -393,13 +409,16 @@ namespace labwork
                     }
                 }
 
-                ni[i] = ni[i] * 1 / (count_exp * Math.Abs(zi[i + 1] - zi[i]));
+                ni[i] = ni[i] * 1.0 / (count_exp * Math.Abs(zi[i + 1] - zi[i]));
                 dataGridView4.Rows[2].Cells[i].Value = ni[i];
 
+                chart2.Series[0].SetCustomProperty("PixelPointWidth", Convert.ToString(Math.Round(zi[i + 1] - zi[i])*10));
                 chart2.Series[0].Points.AddXY((zi[i + 1] + zi[i]) / 2, ni[i]);
+                
+                
             }
             chart2.Series[0].Points.AddXY(size, ni[size]);
-
+            
             double abs_max = -99;
             int pos = 0;
             for (int i = 0; i < size; i++)
@@ -415,7 +434,8 @@ namespace labwork
 
             label8.Text = "max: " + Convert.ToString(abs_max) + ". On pos: " + Convert.ToString(pos);
 
-
+            chart2.ChartAreas[0].AxisX.Minimum = zi[0] - 5;
+            chart2.ChartAreas[0].AxisX.Maximum = zi[size] + 5;
         }
     }
 }
