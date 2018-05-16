@@ -337,6 +337,8 @@ namespace labwork
         public double[] interval_borders;
         public int[] count_in_intervals;
         public double[] prob_in_intervals;
+        public double r0;
+        public double fr0;
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
@@ -348,8 +350,18 @@ namespace labwork
             dataGridView5.ColumnCount = 1;
             dataGridView5.Columns[0].Name = "zk";
 
-            dataGridView5.Rows[0].Cells[0].Value = etta[0].sv;
-            dataGridView5.Rows[intervals_size-2].Cells[0].Value = etta[count_exp-1].sv;
+            double left = etta[0].sv;
+            double right = etta[count_exp - 1].sv;
+
+            double len = (right - left)/ (intervals_size) - 1;
+
+       
+
+
+            for (int i = 0; i < intervals_size - 1; i++)
+            {
+                dataGridView5.Rows[i].Cells[0].Value = left + len * (i+1);
+            }
 
             count_in_intervals = new int[intervals_size];
             prob_in_intervals = new double[intervals_size];
@@ -427,14 +439,70 @@ namespace labwork
                     }
             }
 
+            for (int i = 0; i < intervals_size-2; i++)
+            {
+                prob_in_intervals[i+1] = normaldistr.normaldistribution(
+                    (Convert.ToDouble(interval_borders[i + 1]) - charact.mean) /
+                    (Math.Sqrt(charact.disp)))
+                    - normaldistr.normaldistribution(
+                                           (Convert.ToDouble(interval_borders[i]) - charact.mean) /
+                                           (Math.Sqrt(charact.disp)));
+                dataGridView6.Rows[i+1].Cells[2].Value = prob_in_intervals[i+1];
+            }
+
+            
+                prob_in_intervals[0] = normaldistr.normaldistribution(
+                                           (Convert.ToDouble(interval_borders[0]) - charact.mean) /
+                                           (Math.Sqrt(charact.disp)))
+                                       - normaldistr.normaldistribution(
+                                           (Convert.ToDouble(Int32.MinValue) - charact.mean) /
+                                           (Math.Sqrt(charact.disp)));
+                dataGridView6.Rows[0].Cells[2].Value = prob_in_intervals[0];
+
+
+                prob_in_intervals[intervals_size-1] = normaldistr.normaldistribution(
+                                           (Convert.ToDouble(Int32.MaxValue) - charact.mean) /
+                                           (Math.Sqrt(charact.disp)))
+                                       - normaldistr.normaldistribution(
+                                           (Convert.ToDouble(interval_borders[intervals_size-2]) - charact.mean) /
+                                           (Math.Sqrt(charact.disp)));
+                dataGridView6.Rows[intervals_size-1].Cells[2].Value = prob_in_intervals[intervals_size - 1];
+
+            label17.Text = "0";
+            r0 = 0;
+            fr0 = 0;
+
+
             for (int i = 0; i < intervals_size; i++)
             {
-                prob_in_intervals[i] = Convert.ToDouble(count_in_intervals[i]) / count_exp;
-                dataGridView6.Rows[i].Cells[2].Value = prob_in_intervals[i];
+                label17.Text = Convert.ToString(Convert.ToDouble(label17.Text)
+                                                + prob_in_intervals[i]);
+
+                r0 += Math.Pow((count_in_intervals[i] - count_exp * prob_in_intervals[i]), 2) /
+                     count_exp * prob_in_intervals[i];
             }
+
+            label14.Text = "R0 = " + r0;
+
+            double tmp_for_plotn = 0;
+
+            for (int i = 1; i < 1000; i++)
+            {
+                tmp_for_plotn += ((get_hi_plot(r0 * Convert.ToDouble((i - 1)) / 1000.0, intervals_size - 1) +
+                                 get_hi_plot(r0 * Convert.ToDouble((i)) / 1000.0, intervals_size - 1)) *
+                                 r0 / (2.0 * 1000.0));
+            }
+
+            fr0 = 1 - tmp_for_plotn;
+            label15.Text = "_F(R0) = " + fr0;
+
         }
 
-
+        double get_hi_plot(double x, double r)
+        {
+            return Math.Pow(2, -r/2) * Math.Pow(gammafunc.gammafunction(r/2),-1)
+                *Math.Pow(x, r/2 - 1) * Math.Exp(-x/2);
+        }
 
         //№3 ЧАСТЬ ЛАБЫ КОНЕЦ//
 
