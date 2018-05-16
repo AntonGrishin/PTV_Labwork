@@ -326,7 +326,20 @@ namespace labwork
 
             double local_max = -10;
 
+            double x2 = 0;
 
+            for (int i = 0; i < 150; i++)
+            {
+                x2 = x2 + i * 0.02;
+                double y = normaldistr.normaldistribution(
+                    (x2 - charact.mean) / (Math.Sqrt(charact.disp)));
+                chart1.Series[0].Points.AddXY(x2, y);
+            }
+
+            chart1.Series[1].Points.AddXY(Convert.ToDouble(dataGridView1.Rows[0].Cells[1].Value), 0);
+            local_max = (Math.Abs(0 - normaldistr.normaldistribution(
+                                      (Convert.ToDouble(dataGridView1.Rows[0].Cells[1].Value) - charact.mean) /
+                                      (Math.Sqrt(charact.disp)))));
 
             for (int i = 0; i < count_exp; i++)
             {
@@ -335,21 +348,44 @@ namespace labwork
                 double y = normaldistr.normaldistribution(
                     (x1 - charact.mean) / (Math.Sqrt(charact.disp)));
 
-                chart1.Series[0].Points.AddXY(x1, y);
 
-                double y1 = ((double)(i) / count_exp);
+                double y1 = ((double)(i + 1) / count_exp);
                 chart1.Series[1].Points.AddXY(x1, y1);
 
-                double rash = Math.Abs(y1 - y);
+                double rash = Math.Abs(((double)(i) / count_exp) - y);
 
 
                 if (local_max < rash)
                     local_max = rash;
+
+                rash = Math.Abs(y1 - y);
+
+
+                if (local_max < rash)
+                    local_max = rash;
+
             }
 
+            
+
+            chart1.ChartAreas[0].AxisX.Minimum = Convert.ToDouble(dataGridView1.Rows[0].Cells[1].Value) - 2;
+            chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(dataGridView1.Rows[count_exp - 1].Cells[1].Value) + 2;
+
+            double sdvig = Convert.ToDouble(dataGridView1.Rows[count_exp - 1].Cells[1].Value) + 5;
+            chart1.Series[1].Points.AddXY(sdvig, 1);
+
+            double razn = (Math.Abs(1 - normaldistr.normaldistribution(
+                                        (sdvig - charact.mean) /
+                                        (Math.Sqrt(charact.disp)))));
+            if (local_max < razn)
+                local_max = razn;
+
             label9.Text = "D: " + Convert.ToDouble(local_max);
-            //chart1.Series[1].Points.AddXY(dataGridView1.Rows[count_exp-1].Cells[1].Value, 1);
         }
+
+
+
+
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -390,7 +426,7 @@ namespace labwork
 
         void charts_zi()
         {
-            
+
 
             chart2.Series[0].Points.Clear();
 
@@ -403,7 +439,7 @@ namespace labwork
 
                 for (int j = 0; j < count_exp; j++)
                 {
-                    if ((zi[i] < etta[j].sv) && (zi[i + 1] > etta[j].sv))
+                    if ((zi[i] <= etta[j].sv) && (zi[i + 1] > etta[j].sv))
                     {
                         ni[i] += 1;
                     }
@@ -412,13 +448,13 @@ namespace labwork
                 ni[i] = ni[i] * 1.0 / (count_exp * Math.Abs(zi[i + 1] - zi[i]));
                 dataGridView4.Rows[2].Cells[i].Value = ni[i];
 
-                chart2.Series[0].SetCustomProperty("PixelPointWidth", Convert.ToString(Math.Round(zi[i + 1] - zi[i])*10));
+                chart2.Series[0].SetCustomProperty("PixelPointWidth", Convert.ToString(Math.Round(zi[i + 1] - zi[i]) * 10));
                 chart2.Series[0].Points.AddXY((zi[i + 1] + zi[i]) / 2, ni[i]);
-                
-                
+
+
             }
             chart2.Series[0].Points.AddXY(size, ni[size]);
-            
+
             double abs_max = -99;
             int pos = 0;
             for (int i = 0; i < size; i++)
