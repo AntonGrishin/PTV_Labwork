@@ -344,31 +344,34 @@ namespace labwork
 
             intervals_size = Convert.ToInt32(textBox6.Text) + 1;
             dataGridView5.Rows.Clear();
-            dataGridView5.RowCount = intervals_size;
+            dataGridView5.RowCount = intervals_size - 1;
             dataGridView5.ColumnCount = 1;
             dataGridView5.Columns[0].Name = "zk";
+
+            dataGridView5.Rows[0].Cells[0].Value = etta[0].sv;
+            dataGridView5.Rows[intervals_size-2].Cells[0].Value = etta[count_exp-1].sv;
 
             count_in_intervals = new int[intervals_size];
             prob_in_intervals = new double[intervals_size];
             interval_borders = new double[intervals_size-1];
+
+        
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
 
             for (int i = 0; i < intervals_size; i++)
             {
                 count_in_intervals[i] = 0;
                 prob_in_intervals[i] = 0;
             }
-        }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            button1_Click(sender,e);
-            button2_Click(sender,e);
-
-            for (int i = 0; i < intervals_size; i++)
+            for (int i = 0; i < intervals_size-1; i++)
             {
-                if (i < intervals_size - 1) interval_borders[i] = Convert.ToDouble(dataGridView5.Rows[i].Cells[0].Value);
-                count_in_intervals[i] = Convert.ToInt32(dataGridView5.Rows[i].Cells[0].Value);
-                prob_in_intervals[i] = 0;
+               interval_borders[i] = Convert.ToDouble(dataGridView5.Rows[i].Cells[0].Value);
+          
             }
 
 
@@ -381,6 +384,54 @@ namespace labwork
             dataGridView6.Columns[1].Name = "n(j)";
             dataGridView6.Columns[2].Name = "q(j)";
 
+            for (int i = 0; i < intervals_size-2; i++)
+            {
+                dataGridView6.Rows[i+1].Cells[0].Value = "[" + interval_borders[i] + ", "
+                                                       + interval_borders[i + 1] + ")";
+            }
+
+            dataGridView6.Rows[0].Cells[0].Value = "(-oo, "
+                                                       + interval_borders[0] + ")";
+            dataGridView6.Rows[intervals_size-1].Cells[0].Value = "("+ 
+                                        interval_borders[intervals_size - 2] + ", +oo)";
+
+            for (int i = 0; i < intervals_size-2; i++)
+            {
+               
+                for (int j = 0; j < count_exp; j++)
+                {
+                 
+                    if ((etta[j].sv >= interval_borders[i]) &&
+                        (etta[j].sv < interval_borders[i+1]))
+                        {
+                            count_in_intervals[i+1]++;
+                            dataGridView6.Rows[i+1].Cells[1].Value = count_in_intervals[i+1];
+                        }
+
+                }
+            }
+
+            for (int j = 0; j < count_exp; j++)
+            {
+               
+                    if (etta[j].sv < interval_borders[0])
+                    {
+                        count_in_intervals[0]++;
+                        dataGridView6.Rows[0].Cells[1].Value = count_in_intervals[0];
+                    }
+               
+                    if (etta[j].sv > interval_borders[intervals_size - 2])
+                    {
+                        count_in_intervals[intervals_size - 1]++;
+                        dataGridView6.Rows[intervals_size - 1].Cells[1].Value = count_in_intervals[intervals_size - 1];
+                    }
+            }
+
+            for (int i = 0; i < intervals_size; i++)
+            {
+                prob_in_intervals[i] = Convert.ToDouble(count_in_intervals[i]) / count_exp;
+                dataGridView6.Rows[i].Cells[2].Value = prob_in_intervals[i];
+            }
         }
 
 

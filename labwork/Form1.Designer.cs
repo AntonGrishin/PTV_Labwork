@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea35 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend35 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series52 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series53 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea36 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend36 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series54 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea39 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend39 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series58 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series59 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea40 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend40 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series60 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -85,6 +85,9 @@
             this.label13 = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.dataGridView6 = new System.Windows.Forms.DataGridView();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -329,28 +332,28 @@
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea35.AxisY.Maximum = 1D;
-            chartArea35.AxisY.Minimum = 0D;
-            chartArea35.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea35);
-            legend35.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend35.Name = "Legend1";
-            this.chart1.Legends.Add(legend35);
+            chartArea39.AxisY.Maximum = 1D;
+            chartArea39.AxisY.Minimum = 0D;
+            chartArea39.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea39);
+            legend39.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend39.Name = "Legend1";
+            this.chart1.Legends.Add(legend39);
             this.chart1.Location = new System.Drawing.Point(234, 271);
             this.chart1.Name = "chart1";
-            series52.BorderWidth = 3;
-            series52.ChartArea = "ChartArea1";
-            series52.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series52.Legend = "Legend1";
-            series52.Name = "F(x)";
-            series53.BorderWidth = 3;
-            series53.ChartArea = "ChartArea1";
-            series53.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series53.Color = System.Drawing.Color.Red;
-            series53.Legend = "Legend1";
-            series53.Name = "Выб F(x)";
-            this.chart1.Series.Add(series52);
-            this.chart1.Series.Add(series53);
+            series58.BorderWidth = 3;
+            series58.ChartArea = "ChartArea1";
+            series58.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series58.Legend = "Legend1";
+            series58.Name = "F(x)";
+            series59.BorderWidth = 3;
+            series59.ChartArea = "ChartArea1";
+            series59.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            series59.Color = System.Drawing.Color.Red;
+            series59.Legend = "Legend1";
+            series59.Name = "Выб F(x)";
+            this.chart1.Series.Add(series58);
+            this.chart1.Series.Add(series59);
             this.chart1.Size = new System.Drawing.Size(487, 284);
             this.chart1.TabIndex = 16;
             this.chart1.Text = "chart1";
@@ -359,19 +362,19 @@
             // 
             this.chart2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea36.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea36);
-            legend36.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend36.IsDockedInsideChartArea = false;
-            legend36.Name = "Legend1";
-            this.chart2.Legends.Add(legend36);
+            chartArea40.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea40);
+            legend40.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend40.IsDockedInsideChartArea = false;
+            legend40.Name = "Legend1";
+            this.chart2.Legends.Add(legend40);
             this.chart2.Location = new System.Drawing.Point(754, 289);
             this.chart2.Name = "chart2";
-            series54.ChartArea = "ChartArea1";
-            series54.CustomProperties = "PixelPointWidth=4";
-            series54.Legend = "Legend1";
-            series54.Name = "Dj";
-            this.chart2.Series.Add(series54);
+            series60.ChartArea = "ChartArea1";
+            series60.CustomProperties = "PixelPointWidth=4";
+            series60.Legend = "Legend1";
+            series60.Name = "Dj";
+            this.chart2.Series.Add(series60);
             this.chart2.Size = new System.Drawing.Size(442, 270);
             this.chart2.TabIndex = 17;
             this.chart2.Text = "chart2";
@@ -554,6 +557,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.dataGridView6);
             this.tabPage2.Controls.Add(this.textBox7);
             this.tabPage2.Controls.Add(this.label13);
@@ -592,9 +598,9 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(8, 27);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(101, 13);
+            this.label12.Size = new System.Drawing.Size(22, 13);
             this.label12.TabIndex = 2;
-            this.label12.Text = "Число интервалов";
+            this.label12.Text = "k-1";
             // 
             // button6
             // 
@@ -632,6 +638,33 @@
             this.dataGridView6.Name = "dataGridView6";
             this.dataGridView6.Size = new System.Drawing.Size(429, 224);
             this.dataGridView6.TabIndex = 6;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(333, 300);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(21, 13);
+            this.label14.TabIndex = 7;
+            this.label14.Text = "R0";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(641, 300);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(39, 13);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "_F(R0)";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(505, 337);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(22, 13);
+            this.label16.TabIndex = 9;
+            this.label16.Text = "     ";
             // 
             // Form1
             // 
@@ -711,6 +744,9 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.DataGridView dataGridView6;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
     }
 }
 
