@@ -313,6 +313,22 @@ namespace labwork
             dataGridView2.Rows[0].Cells[7].Value = Convert.ToString(charact.razm);
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                chart1.Visible = true;
+                chart2.Visible = true;
+                label9.Visible = true;
+            }
+            else
+            {
+                chart1.Visible = false;
+                chart2.Visible = false;
+                label9.Visible = false;
+            }
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
 
