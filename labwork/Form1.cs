@@ -329,6 +329,65 @@ namespace labwork
             }
         }
 
+
+
+        //№3 ЧАСТЬ ЛАБЫ//
+        public int intervals_size;
+        public double alpha;
+        public double[] interval_borders;
+        public int[] count_in_intervals;
+        public double[] prob_in_intervals;
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            dataGridView5.Rows.Clear();
+
+            intervals_size = Convert.ToInt32(textBox6.Text) + 1;
+            dataGridView5.Rows.Clear();
+            dataGridView5.RowCount = intervals_size;
+            dataGridView5.ColumnCount = 1;
+            dataGridView5.Columns[0].Name = "zk";
+
+            count_in_intervals = new int[intervals_size];
+            prob_in_intervals = new double[intervals_size];
+            interval_borders = new double[intervals_size-1];
+
+            for (int i = 0; i < intervals_size; i++)
+            {
+                count_in_intervals[i] = 0;
+                prob_in_intervals[i] = 0;
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            button1_Click(sender,e);
+            button2_Click(sender,e);
+
+            for (int i = 0; i < intervals_size; i++)
+            {
+                if (i < intervals_size - 1) interval_borders[i] = Convert.ToDouble(dataGridView5.Rows[i].Cells[0].Value);
+                count_in_intervals[i] = Convert.ToInt32(dataGridView5.Rows[i].Cells[0].Value);
+                prob_in_intervals[i] = 0;
+            }
+
+
+            alpha = Convert.ToDouble(textBox7.Text);
+            dataGridView6.Rows.Clear();
+            dataGridView6.ColumnCount = 3;
+            dataGridView6.RowCount = intervals_size;
+
+            dataGridView6.Columns[0].Name = "[a(j-1), a(j)]";
+            dataGridView6.Columns[1].Name = "n(j)";
+            dataGridView6.Columns[2].Name = "q(j)";
+
+        }
+
+
+
+        //№3 ЧАСТЬ ЛАБЫ КОНЕЦ//
+
+
         private void button3_Click(object sender, EventArgs e)
         {
 
