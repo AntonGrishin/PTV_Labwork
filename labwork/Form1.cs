@@ -353,7 +353,7 @@ namespace labwork
             double left = etta[0].sv;
             double right = etta[count_exp - 1].sv;
 
-            double len = (right - left)/ (intervals_size) - 1;
+            double len = (right - left)/ (intervals_size) - (1/right);
 
        
 
@@ -486,15 +486,20 @@ namespace labwork
 
             double tmp_for_plotn = 0;
 
-            for (int i = 1; i < 1000; i++)
+            for (int i = 1; i < 2000; i++)
             {
-                tmp_for_plotn += ((get_hi_plot(r0 * Convert.ToDouble((i - 1)) / 1000.0, intervals_size - 1) +
-                                 get_hi_plot(r0 * Convert.ToDouble((i)) / 1000.0, intervals_size - 1)) *
-                                 r0 / (2.0 * 1000.0));
+                tmp_for_plotn += (get_hi_plot(r0 * Convert.ToDouble((i - 1)) / 2000.0, intervals_size - 1) +
+                                 get_hi_plot(r0 * Convert.ToDouble((i)) / 2000.0, intervals_size - 1)) *
+                                 r0 / (2.0 * 2000.0);
             }
 
             fr0 = 1 - tmp_for_plotn;
             label15.Text = "_F(R0) = " + fr0;
+
+            alpha = Convert.ToDouble(textBox7.Text);
+
+            if (fr0 > alpha) label16.Text = "Гипотеза принята";
+            else label16.Text = "Гипотеза не принята";
 
         }
 
